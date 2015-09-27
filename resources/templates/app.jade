@@ -1,0 +1,16 @@
+.app-container
+  nav.navbar.navbar-light
+    a.navbar-brand(href="/") Navbar
+    ul.nav.navbar-nav
+      li.nav-item.active
+        a.nav-link(href="users") Users
+      li.nav-item.active
+        a.nav-link(href="users/24910") User
+      <form class="form-inline navbar-form pull-right">
+
+    .pull-right
+      button.btn.btn-success-outline Login
+
+  main.container-fluid
+    .row
+      .col-xs-12(data-hook='main-view')

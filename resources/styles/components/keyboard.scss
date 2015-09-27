@@ -1,0 +1,157 @@
+$keys: 25;
+$key-width: 100% / ( ($keys - floor($keys / 12) * 5) );
+
+/* Piano Wrapper */ 
+.keyboard {
+  position: relative;
+  margin:0px; 
+  padding:0px; 
+
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+
+  // Top grey padding
+  &:after {
+    content: '';
+    background: #aaa;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height:10px;
+  }
+
+  /* Keys */ 
+  .key {
+    position:relative; 
+    display: inline-block;
+    float:left; 
+    text-align: center;
+
+            transition: all 0.035s;
+    -webkit-transition: all 0.035s;
+
+    &:before, &:after {
+              transition: all 0.035s;
+      -webkit-transition: all 0.035s;      
+    }
+
+    /* White keys */ 
+    &.w {
+      position:relative; 
+      display: inline-block;
+      float:left; 
+
+      width:$key-width;
+      height:220px; 
+
+      background:#aaa;
+      background:-webkit-linear-gradient(-30deg,#f5f5f5,#fff); 
+      background:-moz-linear-gradient(-30deg,#f5f5f5,#fff); 
+      background:-ms-linear-gradient(-30deg,#f5f5f5,#fff); 
+      background:-o-linear-gradient(-30deg,#f5f5f5,#fff); 
+      background:linear-gradient(-30deg,#f5f5f5,#fff); 
+
+      border:1px solid #ccc; 
+
+      -webkit-box-shadow:inset 0 1px 0px #fff,inset 0 -1px 0px #fff,inset 1px 0px 0px #fff,inset -1px 0px 0px #fff,0 4px 3px rgba(0,0,0,0.7); 
+      -moz-box-shadow:inset 0 1px 0px #fff,inset 0 -1px 0px #fff,inset 1px 0px 0px #fff,inset -1px 0px 0px #fff,0 4px 3px rgba(0,0,0,0.7); 
+      box-shadow:inset 0 1px 0px #fff,inset 0 -1px 0px #fff,inset 1px 0px 0px #fff,inset -1px 0px 0px #fff,0 4px 3px rgba(0,0,0,0.7); 
+
+      -webkit-border-radius:0 0 3px 3px; 
+      -moz-border-radius:0 0 3px 3px; 
+      border-radius:0 0 3px 3px; 
+
+      margin:0px; 
+      padding:0px; 
+
+      -webkit-user-select: none;
+      user-select: none;
+
+      &.pressed {
+        -webkit-box-shadow:0 2px 2px rgba(0,0,0,0.4); 
+        -moz-box-shadow:0 2px 2px rgba(0,0,0,0.4); 
+        box-shadow:0 2px 2px rgba(0,0,0,0.4); 
+        position:relative; 
+        top:2px; 
+        height:216px; 
+
+        &:before,
+        & ~ .w:not(.pressed) ~ .w.pressed:before {
+          content:""; 
+          width:0px; 
+          height:0px; 
+          border-width:216px 5px 0px; 
+          border-style:solid; 
+          border-color:transparent transparent transparent rgba(0,0,0,0.1); 
+          position:absolute; 
+          left:0px; 
+          top:0px; 
+        }
+
+        & ~ .w.pressed:before {
+          content: none;
+        }   
+      }
+
+      &.pressed + .w:after,
+      &.pressed + .b + .w:after {
+        content:""; 
+        z-index: 2;
+        width:0px; 
+        height:0px; 
+        border-width:216px 5px 0px; 
+        border-style:solid; 
+        border-color:transparent rgba(0,0,0,0.1) transparent transparent; 
+        position:absolute; 
+        left:-1px * (5 * 2 + 2);
+        top:0px; 
+      }
+
+      &.pressed ~ .w.pressed:after {
+        content: none;
+      }
+    }
+
+    /* black keys */ 
+    &.b {
+      // position:absolute; 
+      top:0px; 
+      margin-left:-$key-width / 2; 
+      left: $key-width / 4;
+      width:$key-width / 2; 
+      height:120px; 
+
+      z-index:10; 
+      
+      background:#333; 
+      background:-webkit-linear-gradient(-20deg,#333,#000,#333); 
+      background:-moz-linear-gradient(-20deg,#333,#000,#333); 
+      background:-ms-linear-gradient(-20deg,#333,#000,#333); 
+      background:-o-linear-gradient(-20deg,#333,#000,#333); 
+      background:linear-gradient(-20deg,#333,#000,#333); 
+      
+      border-width:1px 2px 7px; 
+      border-style:solid; 
+      border-color:#666 #222 #111 #555; 
+      
+      -webkit-box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4); 
+      -moz-box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4); 
+      box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4); 
+      
+      -webkit-border-radius:0 0 2px 2px; 
+      -moz-border-radius:0 0 2px 2px; 
+      border-radius:0 0 2px 2px; 
+
+      &.pressed {
+        border-bottom-width:2px; 
+        height:120px; 
+      }
+    }
+
+    .ctrl {
+      // text
+    }
+  }
+}
