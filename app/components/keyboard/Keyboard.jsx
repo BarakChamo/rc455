@@ -1,5 +1,6 @@
 import 'styles/components/keyboard.scss'
-import Key from './key'
+import Key  from './key'
+import Knob from 'components/controls/Knob'
 
 const ctrlKeys  = ['A', 'W', 'S', 'E', 'D', 'F', 'T', 'G', 'Y', 'H', 'U', 'J', 'K', 'O', 'L', 'P', ';', '\'', '}', '\\'],
       keyColor  = ['w', 'b', 'w', 'b', 'w', 'w', 'b', 'w', 'b', 'w', 'b', 'w']
@@ -14,7 +15,11 @@ export default class Keyboard extends Component {
           <div className='row'>
             <div className='col-xs-2'>
               <div className='control-group'>
-
+                <span>Arp Control</span>
+                <br/>
+                <br/>
+                <br/>
+                <span>Pitch Contorl</span>
               </div>
             </div>
             <div className='keyboard col-xs-10'>
