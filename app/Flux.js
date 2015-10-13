@@ -6,9 +6,6 @@ import SynthStore from './stores/SynthStore';
 import KeyboardActions from './actions/KeyboardActions';
 import KeyboardStore from './stores/KeyboardStore';
 
-import AudioActions from './actions/AudioActions';
-import AudioStore from './stores/AudioStore';
-
 export default class Flux extends Flummox {
   constructor() {
     super();

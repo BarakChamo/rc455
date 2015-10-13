@@ -1,5 +1,5 @@
 import { Store } from 'flummox';
-
+import   audio   from 'controllers/Audio'
 /*
   Keyboard controller
 
@@ -34,6 +34,8 @@ const noteKeys = [
   220,// G -> G
 ]
 
+const midiBase = 48 // C3 - root note in root transposition
+
 export default class KeyboardStore extends Store {
 
   constructor(flux) {
@@ -53,6 +55,8 @@ export default class KeyboardStore extends Store {
 
     // Set Initial State
     this.state = {
+      transposition: 0,
+
       // Keys pressed
       keys: {},
 
@@ -74,6 +78,9 @@ export default class KeyboardStore extends Store {
     // Get actions
     const keyboardActionIds = flux.getActionIds('keyboard')
 
+    // Other store actions
+    this.synthActions = flux.getActions('synth')
+
     // Reigster handlers
     this.register(keyboardActionIds.KEY_UP,       this.handleKeyUp)
     this.register(keyboardActionIds.KEY_DOWN,     this.handleKeyDown)
@@ -91,6 +98,9 @@ export default class KeyboardStore extends Store {
 
   // Handle key press
   handleKeyDown(key, velocity = 127) {
+    // Exit if not a mapped key
+    if (key < 0) return
+
     // TODO:
     // Same key can only be pressed once?
     // This is different between this._keys and this.state.keys
@@ -106,6 +116,9 @@ export default class KeyboardStore extends Store {
 
   // Handle key release
   handleKeyUp(key) {
+    // Exit if not a mapped key
+    if (key < 0) return
+
     // Remove released key
     delete this._keys[key]
 
@@ -155,8 +168,16 @@ export default class KeyboardStore extends Store {
 
   // Set derived key presses
   setKeys() {
+    let oldNotes = Object.keys(this.state.keys).map(k => +k),
+        newNotes = Object.keys(this._keys).map(k => +k)
+
+
+    for (let note of _.difference(oldNotes, newNotes)) audio.noteOff(midiBase + note)
+    for (let note of _.difference(newNotes, oldNotes)) audio.noteOn( midiBase + note, this._keys[note])
+
+    // Set keys on Keyboard store (new object so we have 1-step history)
     this.setState({
-      keys: this._keys
+      keys: _.extend({}, this._keys)
     })
   }
 

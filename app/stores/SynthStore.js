@@ -1,4 +1,7 @@
-import { Store } from 'flummox';
+import { Store } from 'flummox'
+import   audio   from 'controllers/Audio'
+import   patch   from 'config/patches/default.json'
+import   desc    from 'config/descriptors'
 
 export default class SynthStore extends Store {
 
@@ -11,17 +14,28 @@ export default class SynthStore extends Store {
 
     const synthActionIds = flux.getActionIds('synth')
 
-    this.register(synthActionIds.NOTE_ON,  this.handleNoteOn)
-    this.register(synthActionIds.NOTE_OFF, this.handleNoteOff)
-
+    this.register(synthActionIds.CONTROL_CHANGE, this.handleControlChange)
 
     /*
       State definition
     */ 
 
     this.state = {
-      tempo: 128 
+      // Global tempo (effects LFO, ARP, ENV, AUTOPLAY...)
+      tempo: 128,
+      
+      // Active notes
+      notes: [],
+
+      // Synth patch preset
+      patch: patch,
+
+      // Latest control change description
+      desc: ''
     }
+
+    // Set default patch to audio manager
+    audio.setPatch(this.state.patch)
   }
 
 
@@ -29,11 +43,19 @@ export default class SynthStore extends Store {
     Action handlers
   */ 
 
-  handleNoteOn(d) {
-    console.log('NOTE ON', d)
-  }
+  handleControlChange(params) {
+    const [target, control, value] = params
+    
+    // Update state value (test for global or voice)
+    this.state.patch[this.state.patch.voice.hasOwnProperty(target) ? 'voice' : 'global'][target][control] = value
 
-  handleNoteOff(d) {
-    console.log('NOTE OFF', d)
+    // Update audio manager
+    audio.setPatch(this.state.patch)
+
+    // Update latest control change decription
+    this.state.desc = desc[target][control](value)
+
+    // Set state
+    this.setState(this.state)
   }
 }

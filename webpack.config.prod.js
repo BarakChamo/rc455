@@ -42,6 +42,11 @@ module.exports = [
                     loader: 'babel?optional[]=runtime'
                 },
 
+                {   // JSON Loader
+                    test: /\.json$/, 
+                    loader: 'json'
+                },
+
                 {   // JADE Loader
                     test: /\.jade$/, 
                     loader: 'jade'
@@ -68,7 +73,8 @@ module.exports = [
         resolve: {
             modulesDirectories: [
                 'node_modules', 
-                'resources' 
+                'resources',
+                'app'
             ],
             extensions: ['', '.js', '.jsx']
         },

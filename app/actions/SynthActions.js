@@ -6,16 +6,16 @@ export default class SynthActions extends Actions {
     MIDI Actions
   */ 
 
-  NOTE_ON(d) {
-    return d;
+  NOTE_ON(note, velocity) {
+    return [note, velocity]
   }
 
   NOTE_OFF(d) {
-    return d;
+    return d
   }
 
-  CONTROL_CHANGE(d) {
-    return d;
+  CONTROL_CHANGE(target, control, value) {
+    return [target, control, value]
   }
 
 

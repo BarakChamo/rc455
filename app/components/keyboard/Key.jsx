@@ -2,12 +2,15 @@
 const ghost = document.createElement('IMG')
 ghost.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
+const noteKeys = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
+
 // Append ghost to document
 document.body.appendChild(ghost)
 
 export default class Key extends Component {
   componentDidMount() {
     this.elm = ghost
+    this.keyboardActions = this.flux.getActions('keyboard')
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -16,13 +19,15 @@ export default class Key extends Component {
   }
 
   handleOn(e) {
+    if(e.which > 1 || e.button > 1) return
+
     // Trigger keyboard store event
-    this.flux.getActions('keyboard').KEY_DOWN(this.props.tone)
+    this.keyboardActions.KEY_DOWN(this.props.tone, 127)
   }
 
   handleOff(e) {
     // Trigger keyboard store event
-    this.flux.getActions('keyboard').KEY_UP(this.props.tone)
+    this.keyboardActions.KEY_UP(this.props.tone)
   }
 
   hideGhost(e) {
@@ -41,8 +46,8 @@ export default class Key extends Component {
         onDragExit={  e => this.handleOff(e) }
         onDragLeave={ e => this.handleOff(e) }
       >
-        {this.props.tone}
-        <div className='ctrl'>{this.props.ctrl}</div>
+        <span className='label'>{ noteKeys[ this.props.tone % noteKeys.length ] }</span>
+        <span className='ctrl'>{ this.props.ctrl }</span>
       </div>
     )
   }

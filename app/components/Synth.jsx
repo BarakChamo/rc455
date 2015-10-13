@@ -1,4 +1,8 @@
-import Keyboard from './keyboard/Keyboard'
+import 'styles/components/synth.scss'
+
+// Keyboard
+import Keyboard from 'components/keyboard/Keyboard'
+import Controls from 'components/controls/Controls.jsx'
 
 export default class Synth extends Component {
   componentDidMount() {
@@ -9,10 +13,14 @@ export default class Synth extends Component {
     return (
       <div className='container-fluid'>
         <div className='row'>
-          <Keyboard
-            connectToStores={['keyboard']}
+          <Controls
+            connectToStores={['synth']}
           />
         </div>
+        
+        <Keyboard
+          connectToStores={['keyboard']}
+        />
       </div>
     )
   }

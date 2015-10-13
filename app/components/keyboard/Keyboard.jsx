@@ -1,7 +1,7 @@
 import 'styles/components/keyboard.scss'
 import Key from './key'
 
-const ctrlKeys  = ['A', 'W', 'S', 'E', 'D', 'F', 'T', 'G', 'Y', 'H', 'U', 'J', 'K', 'O', 'L', 'P', ';', 'F', 'T', 'G'],
+const ctrlKeys  = ['A', 'W', 'S', 'E', 'D', 'F', 'T', 'G', 'Y', 'H', 'U', 'J', 'K', 'O', 'L', 'P', ';', '\'', '}', '\\'],
       keyColor  = ['w', 'b', 'w', 'b', 'w', 'w', 'b', 'w', 'b', 'w', 'b', 'w']
 
 export default class Keyboard extends Component {
@@ -10,8 +10,19 @@ export default class Keyboard extends Component {
 
     return (
       <Component>
-        <div className='keyboard col-xs-12'>
-          {keys}
+        <div className='container-fluid'>
+          <div className='row'>
+            <div className='col-xs-2'>
+              <div className='control-group'>
+
+              </div>
+            </div>
+            <div className='keyboard col-xs-10'>
+              <div className='keyboard-container'>
+                {keys}
+              </div>
+            </div>
+          </div>
         </div>
       </Component>
     )
