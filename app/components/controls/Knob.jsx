@@ -10,10 +10,6 @@ let eventKeys = [
 
 export default class Knob extends Component {
   componentWillMount() {
-    // Get synth actions
-    this.synthActions = this.flux.getActions('synth')
-
-
     // Handle discrete values
     if (this.props.values) {
       
@@ -70,7 +66,7 @@ export default class Knob extends Component {
     if (this.props.values) value = this.props.values[value]
 
     // Call control change action
-    this.synthActions.CONTROL_CHANGE(this.props.target, this.props.control, value)
+    this.props.handler(this.props.target, this.props.control, value)
   }
 
   render() {

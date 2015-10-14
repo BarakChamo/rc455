@@ -17,4 +17,14 @@ export default class KeyboardActions extends Actions {
   PITCH_CHANGE(pitch) {
     return pitch
   }
+
+  SET_ARP_MODE(target, control, mode) {
+    // this.synthActions.SET_DESC(`Arpeggiator: ${ this.state.arp.on ? 'ON' : 'OFF' }`)
+
+    return mode
+  }
+
+  SET_ARP_RATE(target, control, rate) {
+    return rate
+  }
 }

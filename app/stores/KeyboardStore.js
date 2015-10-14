@@ -45,6 +45,8 @@ export default class KeyboardStore extends Store {
   constructor(flux) {
     super()
 
+    const self = this
+
     /*
       Internal inter-props
     */ 
@@ -52,6 +54,9 @@ export default class KeyboardStore extends Store {
     // "actually" pressed key
     this._keys = {}
 
+    // Arp index
+    this._ai = 0
+    this._arp = []
 
     /*
       State definition
@@ -64,9 +69,11 @@ export default class KeyboardStore extends Store {
       // Keys pressed
       keys: {},
 
-      // Arpegiator mode
+      // Arpeggiator mode
       arp:  {
-        on: false
+        on: false,
+        mode: 'OFF',
+        rate: 250
       },
 
       // Chord mode
@@ -89,6 +96,8 @@ export default class KeyboardStore extends Store {
     this.register(keyboardActionIds.KEY_UP,       this.handleKeyUp)
     this.register(keyboardActionIds.KEY_DOWN,     this.handleKeyDown)
     this.register(keyboardActionIds.PITCH_CHANGE, this.handlePitch)
+    this.register(keyboardActionIds.SET_ARP_MODE, this.setArpMode)
+    this.register(keyboardActionIds.SET_ARP_RATE, this.setArpRate)
 
     // Bind global key strokes
     document.addEventListener('keydown', e => (e.keyCode || e.which) && this.handleKeyDown(noteKeys.indexOf(e.keyCode || e.which)) )
@@ -97,6 +106,34 @@ export default class KeyboardStore extends Store {
     // Bind to MIDI (OMG!!! MIDI in the browser! WTF!)
     midi.on('ON', (note, velocity) => this.handleKeyDown(note, velocity) )
     midi.on('OFF', note            => this.handleKeyUp(note) )
+
+    
+    /*
+      Initialize Arp
+    */
+
+    function arpeggiate(){
+      // Make sure arp is in range
+      self._ai = self._ai % self._arp.length || 0
+
+      if(self.state.arp.on) {
+        if (self._arp.length) {
+          self.setKeys({
+            [self._arp[self._ai]]: self._keys[[self._arp[self._ai]]]
+          })
+
+          // Make sure arp is in range
+          self._ai = (self._ai + self.state.arp.mode) % self._arp.length || 0
+        } else {
+          self.setKeys({})
+        }
+      }
+
+
+      setTimeout(arpeggiate, self.state.arp.rate)
+    }
+
+    arpeggiate()
   }
 
 
@@ -121,7 +158,7 @@ export default class KeyboardStore extends Store {
     this._keys[k] = velocity
 
     // Generate chords
-    this.processPitch()
+    this.processArp()
   }
 
   // Handle key release
@@ -135,7 +172,7 @@ export default class KeyboardStore extends Store {
     delete this._keys[k]
 
     // Generate chords
-    this.processPitch()
+    this.processArp()
   }
 
   // Handle pitch settings
@@ -148,7 +185,7 @@ export default class KeyboardStore extends Store {
       transposition: transposition
     })
 
-    this.setKeys()
+    this.setKeys({})
 
   }
 
@@ -157,9 +194,18 @@ export default class KeyboardStore extends Store {
 
   }
 
-  // Handle arpegiator settings
-  handleArp() {
+  // Handle Arpeggiator settings
+  setArpMode(mode) {
+    console.log('setArpMode', mode)
+    this.state.arp.on = ( mode !== 'OFF' )
+    this.state.arp.mode = mode
+    this.setState(this.state)
+  }
 
+  setArpRate(rate) {
+    console.log('setArpRate', rate)
+    this.state.arp.rate = rate
+    this.setState(this.state)
   }
 
 
@@ -167,38 +213,25 @@ export default class KeyboardStore extends Store {
     Internal handlers
   */ 
 
-  processPitch() {
-    this.processChord()
-  }
-
-  processChord() {
-    if (this.state.chord.on) {
-      // TODO
-    }
-
-    this.processArp()
-  }
-
   processArp() {
-    if (this.state.arp.on) {
-      // TODO
+    if (!this.state.arp.on){
+      return this.setKeys(this._keys)
     }
 
-    this.setKeys()
+    this._arp = Object.keys(this._keys)
   }
 
   // Set derived key presses
-  setKeys() {
+  setKeys(newKeys) {
     let oldNotes = Object.keys(this.state.keys).map( k => +k ),
-        newNotes = Object.keys(this._keys).map( k => +k )
-
+        newNotes = Object.keys(newKeys).map( k => +k )
 
     for (let note of _.difference(oldNotes, newNotes)) audio.noteOff( note )
-    for (let note of _.difference(newNotes, oldNotes)) audio.noteOn(  note, this._keys[note])
+    for (let note of _.difference(newNotes, oldNotes)) audio.noteOn(  note, newKeys[note])
 
     // Set keys on Keyboard store (new object so we have 1-step history)
     this.setState({
-      keys: _.extend({}, this._keys)
+      keys: _.extend({}, newKeys)
     })
   }
 

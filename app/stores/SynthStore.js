@@ -36,6 +36,7 @@ export default class SynthStore extends Store {
     this.register(synthActionIds.SET_PATCH, this.setPatch)
     this.register(synthActionIds.SAVE_PATCH, this.savePatch)
     this.register(synthActionIds.DELETE_PATCH, this.deletePatch)
+    this.register(synthActionIds.SET_DESC, this.setDescription)
 
 
     /*
@@ -138,6 +139,13 @@ export default class SynthStore extends Store {
     this.setState({
       patch: patch,
       desc:  `Deleted ${ name }`
+    })
+  }
+
+  setDescription(desc) {
+    // Set description from outside
+    this.setState({
+      desc:  `${ desc }`
     })
   }
 }

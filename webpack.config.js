@@ -8,7 +8,7 @@ module.exports = [
         name: 'desktop',
         
         // Makes sure errors in console map to the correct file and line number
-        devtool: 'eval',
+        devtool: 'eval-source-map',
 
         // Define entry points
         entry: {

@@ -34,4 +34,8 @@ export default class SynthActions extends Actions {
   DELETE_PATCH() {
     return true
   }
+
+  SET_DESC(desc) {
+    return desc
+  }
 }
