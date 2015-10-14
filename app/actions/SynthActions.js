@@ -24,10 +24,14 @@ export default class SynthActions extends Actions {
   */ 
 
   SET_PATCH(d) {
-
+    return d
   }
 
-  SAVE_PATCH(d) {
+  SAVE_PATCH() {
+    return true
+  }
 
+  DELETE_PATCH() {
+    return true
   }
 }

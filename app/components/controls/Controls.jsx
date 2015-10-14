@@ -7,6 +7,7 @@ import     preset from 'config/patches/default.json'
 // Synth Controls
 import Knob       from './Knob'
 import Switch     from './Switch'
+import Button     from './Button'
 import Visualizer from './Visualizer'
 
 const components = {
@@ -27,6 +28,13 @@ export default class SynthControls extends Component {
 
     // Get synth actions for control changes
     let handler = this.flux.getActions('synth').CONTROL_CHANGE
+
+    const classMap = {
+      left:   'col-xs-1 control-group',
+      right:  'col-xs-1 control-group',
+      center: 'col-xs-3',
+      extra:  'col-xs-6'
+    }
 
     for (let side in definition) for (let column of definition[side]) {
       let sections = []
@@ -60,7 +68,7 @@ export default class SynthControls extends Component {
       }
 
       this.controls[side].push(
-        <div className={`${['center', 'extra'].indexOf(side) >= 0 ? 'col-xs-3' : 'col-xs-1 control-group'}`} key={ side + this.controls[side].length } >
+        <div className={`${classMap[side]}`} key={ side + this.controls[side].length } >
           <div className='control-group-inner'>
             { sections }
           </div>
@@ -76,6 +84,8 @@ export default class SynthControls extends Component {
   }
 
   render() {
+    let actions = this.flux.getActions('synth')
+
     return (
       <div className='col-xs-12'>
         <div className='container-fluid'>
@@ -103,9 +113,51 @@ export default class SynthControls extends Component {
 
             <div className='col-xs-2'>
               <div className='controls-global'>
-                <span>
-                  Presets
-                </span>
+                <div className='control-group'>
+                  <div className='row'>
+                    <div className='col-xs-12 control-label presets text-center'>Presets</div>
+                    <div className='col-xs-12 text-center container-fluid'>
+                      <div className='row'>
+                        <div className='col-xs-6 text-center'>
+                          <Button
+                            label='<'
+                            handler={ actions.SET_PATCH }
+                            // on={ this.state.transposition < 0 }                      
+                            value={-1}
+                          />
+                          <div className='control-label mini text-center presets'>prev.</div>
+                        </div>
+                        <div className='col-xs-6 text-center'>
+                          <Button
+                            label='>'
+                            handler={ actions.SET_PATCH }
+                            // on={ this.state.transposition > 0 }
+                            value={1}
+                          />
+                          <div className='control-label mini text-center presets'>next</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='col-xs-12 text-center container-fluid'>
+                      <div className='row'>
+                        <div className='col-xs-6 text-center'>
+                          <Button
+                            label='✦'
+                            handler={ actions.SAVE_PATCH }
+                          />
+                          <div className='control-label mini text-center'>save</div>
+                        </div>
+                        <div className='col-xs-6 text-center'>
+                          <Button
+                            label='×'
+                            handler={ actions.DELETE_PATCH }
+                          />
+                          <div className='control-label mini text-center'>delete</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className='controls-extra control-group'>
                 <div className='row control-group-inner'>

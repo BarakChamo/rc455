@@ -1,6 +1,6 @@
 .control-button {
-	$width:  68px;
-	$height: 60px;
+	$width:  55px;
+	$height: 50px;
 	$gutter: 4px;
 
 	outline: none;
@@ -75,10 +75,10 @@
 	    margin: 3px;
 		border-radius: 3px;
 		
-		left: 6px;
+		left: ($width * 0.11);
 		top: $height * 0.75;
-	    width: $width * 0.75;
-		height: $height / 15;
+	    width: $width * 0.66;
+		height: $height / 20;
 		
 		-webkit-box-shadow: inset rgba(0,0,0,.2) 0 -1px 2px, inset rgba(255,255,255,.1) 0 1px 1px;
 			transition: all 0.1s;

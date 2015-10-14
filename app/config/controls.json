@@ -227,7 +227,7 @@
 
             "Q.value": {
               "type": "Knob",
-              "label": "resonance",
+              "label": "Q",
               "min": 0,
               "max": 15,
               "ticks": 5
@@ -308,18 +308,8 @@
           "RVRB": {
             "setReverb": {
               "type": "Knob",
-              "label": "response",
               "min": 1,
               "max": 90,
-              "ticks": 5
-            },
-
-            "mixReverb": {
-              "type": "Knob",
-              "label": "mix",
-              "min": 0,
-              "max": 1,
-              "jump": 0.05,
               "ticks": 5
             }
           }

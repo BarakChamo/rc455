@@ -3,11 +3,9 @@
 }
 
 .control-switch {
-  $switch-width: 70px;
+  $switch-width: 60px;
   $switch-height: 30px; //$switch-width / 3
   $switch-gap: 3px; //$switch-height / 10
-
-  // margin-left: -7px;
 
   width: $switch-width;
   height: $switch-height;
@@ -17,10 +15,7 @@
   background-color: #000;
 
   margin: 4px 0;
-
-  // &:not(:first-of-type) {
-    margin-top: $switch-height;
-  // }
+  margin-top: $switch-height;
 
   border: 0;
   border-bottom: 1px solid transparent;
@@ -35,13 +30,14 @@
   -webkit-transition: all 0.1s;
 
   &:before, &:after {
-    line-height: 1.25em;
+    font-size: 0.85em;
+    line-height: 1.5em;
 
     text-align: center;
     position: absolute;
     z-index: 1;
 
-    width: $switch-width / 2 - $switch-gap - 1;
+    width: $switch-width / 2 - $switch-gap - 1.5;
     height: $switch-height - ($switch-gap + 1) * 2;
     top: $switch-gap;
 
@@ -86,8 +82,8 @@
     background-image: -webkit-gradient(
       linear, right top, left top,
       color-stop( 0,  hsl(0,0%,0%) ),
-      color-stop( 0.14,   hsl(0,0%,50%) ),
-      color-stop( 0.25,   hsl(0,0%,0%) )
+      color-stop( 0.2,   hsl(0,0%,50%) ),
+      color-stop( 0.3,   hsl(0,0%,0%) )
     );
 
             box-shadow: inset #000 -7px 0 1px, inset #000 0 -5px 10px, inset #000 0 3px 3px;
@@ -135,8 +131,8 @@
     background-image: -webkit-gradient(
       linear, left top, right top,
       color-stop( 0,  hsl(0,0%,0%) ),
-      color-stop( 0.14,   hsl(0,0%,50%) ),
-      color-stop( 0.25,   hsl(0,0%,0%) )
+      color-stop( 0.2,   hsl(0,0%,50%) ),
+      color-stop( 0.3,   hsl(0,0%,0%) )
     );
 
             box-shadow: inset #000 7px 0 1px, inset #000 0 -5px 10px, inset #000 0 3px 3px;

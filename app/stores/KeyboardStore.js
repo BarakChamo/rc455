@@ -91,8 +91,8 @@ export default class KeyboardStore extends Store {
     this.register(keyboardActionIds.PITCH_CHANGE, this.handlePitch)
 
     // Bind global key strokes
-    document.addEventListener('keydown', e => (e.keyCode || e.which) && this.handleKeyDown(noteKeys.indexOf(e.keyCode || e.which) + 12 * this.state.transposition) )
-    document.addEventListener('keyup',   e => (e.keyCode || e.which) && this.handleKeyUp(noteKeys.indexOf(e.keyCode   || e.which) + 12 * this.state.transposition) )
+    document.addEventListener('keydown', e => (e.keyCode || e.which) && this.handleKeyDown(noteKeys.indexOf(e.keyCode || e.which)) )
+    document.addEventListener('keyup',   e => (e.keyCode || e.which) && this.handleKeyUp(noteKeys.indexOf(e.keyCode   || e.which)) )
 
     // Bind to MIDI (OMG!!! MIDI in the browser! WTF!)
     midi.on('ON', (note, velocity) => this.handleKeyDown(note, velocity) )
@@ -109,14 +109,16 @@ export default class KeyboardStore extends Store {
     // Exit if not a mapped key
     if (key < 0) return
 
+    const k = key + midiBase + 12 * this.state.transposition
+
     // TODO:
     // Same key can only be pressed once?
     // This is different between this._keys and this.state.keys
     // Explicit or implicit presses...
-    if (this.state.keys[key]) return
+    if (this.state.keys[k]) return
 
     // Set new key
-    this._keys[key] = velocity
+    this._keys[k] = velocity
 
     // Generate chords
     this.processPitch()
@@ -127,8 +129,10 @@ export default class KeyboardStore extends Store {
     // Exit if not a mapped key
     if (key < 0) return
 
+    const k = key + midiBase + 12 * this.state.transposition
+
     // Remove released key
-    delete this._keys[key]
+    delete this._keys[k]
 
     // Generate chords
     this.processPitch()
@@ -189,8 +193,8 @@ export default class KeyboardStore extends Store {
         newNotes = Object.keys(this._keys).map( k => +k )
 
 
-    for (let note of _.difference(oldNotes, newNotes)) audio.noteOff(midiBase + note)
-    for (let note of _.difference(newNotes, oldNotes)) audio.noteOn( midiBase + note, this._keys[note])
+    for (let note of _.difference(oldNotes, newNotes)) audio.noteOff( note )
+    for (let note of _.difference(newNotes, oldNotes)) audio.noteOn(  note, this._keys[note])
 
     // Set keys on Keyboard store (new object so we have 1-step history)
     this.setState({
