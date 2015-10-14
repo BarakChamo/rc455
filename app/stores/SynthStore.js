@@ -3,6 +3,7 @@ import   audio   from 'controllers/Audio'
 import   patch   from 'config/patches/default.json'
 import   desc    from 'config/descriptors'
 
+
 export default class SynthStore extends Store {
 
   constructor(flux) {

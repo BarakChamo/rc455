@@ -1,5 +1,9 @@
 import { Store } from 'flummox';
 import   audio   from 'controllers/Audio'
+import   MIDI    from 'controllers/MIDI'
+
+let midi = new MIDI()
+
 /*
   Keyboard controller
 
@@ -87,8 +91,12 @@ export default class KeyboardStore extends Store {
     this.register(keyboardActionIds.PITCH_CHANGE, this.handlePitch)
 
     // Bind global key strokes
-    document.addEventListener('keydown', e => (e.keyCode || e.which) && this.handleKeyDown(noteKeys.indexOf(e.keyCode || e.which)) )
-    document.addEventListener('keyup',   e => (e.keyCode || e.which) && this.handleKeyUp(noteKeys.indexOf(e.keyCode || e.which)) )
+    document.addEventListener('keydown', e => (e.keyCode || e.which) && this.handleKeyDown(noteKeys.indexOf(e.keyCode || e.which) + 12 * this.state.transposition) )
+    document.addEventListener('keyup',   e => (e.keyCode || e.which) && this.handleKeyUp(noteKeys.indexOf(e.keyCode   || e.which) + 12 * this.state.transposition) )
+
+    // Bind to MIDI (OMG!!! MIDI in the browser! WTF!)
+    midi.on('ON', (note, velocity) => this.handleKeyDown(note, velocity) )
+    midi.on('OFF', note            => this.handleKeyUp(note) )
   }
 
 
@@ -127,7 +135,16 @@ export default class KeyboardStore extends Store {
   }
 
   // Handle pitch settings
-  handlePitch() {
+  handlePitch(dir) {
+    const transposition = Math.min(Math.max(this.state.transposition + dir, -2), 2)
+
+    this._keys = transposition === this.state.transposition ? this.state.keys : {}
+
+    this.setState({
+      transposition: transposition
+    })
+
+    this.setKeys()
 
   }
 
@@ -163,13 +180,13 @@ export default class KeyboardStore extends Store {
       // TODO
     }
 
-    this.setKeys()    
+    this.setKeys()
   }
 
   // Set derived key presses
   setKeys() {
-    let oldNotes = Object.keys(this.state.keys).map(k => +k),
-        newNotes = Object.keys(this._keys).map(k => +k)
+    let oldNotes = Object.keys(this.state.keys).map( k => +k ),
+        newNotes = Object.keys(this._keys).map( k => +k )
 
 
     for (let note of _.difference(oldNotes, newNotes)) audio.noteOff(midiBase + note)
