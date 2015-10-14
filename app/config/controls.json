@@ -1,0 +1,330 @@
+{
+  "left": [
+    [
+      {
+        "label": "LFO",
+        "controls": {
+          "LFO": {
+            "frequency.value": {
+              "type": "Knob",
+              "label": "rate",
+              "min": 1.0,
+              "max": 8.0,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          },
+
+          "LFOAMPGAIN": {
+            "gain.value": {
+              "type": "Knob",
+              "label": "amp",
+              "min": 0,
+              "max": 0.75,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          },
+
+          "LFOFLTGAIN": {
+            "gain.value": {
+              "type": "Knob",
+              "label": "filter",
+              "min": 0,
+              "max": 1000,
+              "jump": 10,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ],
+
+    [
+      {
+        "label": "OSC1",
+        "controls": {
+          "OSC1": {
+            "type": {
+              "type": "Knob",
+              "label": "waveform",
+              "values": ["sine", "square", "sawtooth", "triangle"]
+            },
+
+            "detune.value": {
+              "type": "Knob",
+              "label": "detune",
+              "min": 0,
+              "max": 100,
+              "ticks": 5
+            }
+          },
+
+          "AMP1": {
+            "gain.value": {
+              "type": "Knob",
+              "label": "amp",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }        
+        }
+      }
+    ],
+
+    [
+      {
+        "label": "OSC2",
+        "controls": {      
+          "OSC2": {
+            "type": {
+              "type": "Knob",
+              "label": "waveform",
+              "values": ["sine", "square", "sawtooth", "triangle"]
+            },
+
+            "detune.value": {
+              "type": "Knob",
+              "label": "detune",
+              "min": 0,
+              "max": 100,
+              "ticks": 5
+            }
+          },
+          
+          "AMP2": {
+            "gain.value": {
+              "type": "Knob",
+              "label": "amp",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ],
+
+    [
+      {
+        "label": "OSC3",
+        "controls": {      
+          "OSC3": {
+            "type": {
+              "type": "Knob",
+              "label": "waveform",
+              "values": ["sine", "square", "sawtooth", "triangle"]
+            },
+
+            "detune.value": {
+              "type": "Knob",
+              "label": "detune",
+              "min": 0,
+              "max": 100,
+              "ticks": 5
+            }
+          },
+
+          "AMP3": {
+            "gain.value": {
+              "type": "Knob",
+              "label": "amp",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ]
+  ],
+
+  "center": [
+    [
+      {
+        "controls": {
+          "ENV": {
+            "attack": {
+              "type": "Knob",
+              "label": "attack",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ],
+    [
+      {
+        "controls": {
+          "ENV": {
+            "decay": {
+              "type": "Knob",
+              "label": "decay",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ],
+    [
+      {
+        "controls": {
+          "ENV": {
+            "sustain": {
+              "type": "Knob",
+              "label": "sustain",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ],
+    [
+      {
+        "controls": {
+          "ENV": {
+            "release": {
+              "type": "Knob",
+              "label": "release",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ]
+  ],
+
+  "right": [
+    [
+      {
+        "label": "FILTER",
+        "controls": {
+          "FLT": {
+            "frequency.value": {
+              "type": "Knob",
+              "label": "cutoff",
+              "min": 0,
+              "max": 5000,
+              "jump": 100,
+              "ticks": 5
+            },
+
+            "Q.value": {
+              "type": "Knob",
+              "label": "resonance",
+              "min": 0,
+              "max": 15,
+              "ticks": 5
+            },
+
+            "type": {
+              "type": "Switch",
+              "label": "mode",
+              "values": ["highpass", "lowpass"], 
+              "on": "HP",
+              "off": "LP"
+            }
+          }
+        }
+      }
+    ],
+
+    [
+      {
+        "label": "DIST.",
+        "controls": {
+          "DIST": {
+            "setCurve": {
+              "type": "Knob",
+              "min": 0,
+              "max": 40,
+              "ticks": 4
+            }
+          }
+        }
+      },
+      {
+        "label": "REVERB",
+        "controls": {
+          "RVRB": {
+            "setReverb": {
+              "type": "Knob",
+              "label": "response",
+              "min": 1,
+              "max": 90,
+              "ticks": 5
+            },
+
+            "mixReverb": {
+              "type": "Knob",
+              "label": "mix",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ]
+  ],
+
+  "extra": [
+    [
+      {
+        "label": "VOCODER",
+        "controls": {
+          "VCDR": {
+            "enableVocoder": {
+              "type": "Switch",
+              "values":[true, false],
+              "on": "ON",
+              "off": "OFF"
+            }
+          }
+        }
+      }
+    ],
+
+    [
+      {
+        "controls": {
+          "RVRB": {
+            "setReverb": {
+              "type": "Knob",
+              "label": "response",
+              "min": 1,
+              "max": 90,
+              "ticks": 5
+            },
+
+            "mixReverb": {
+              "type": "Knob",
+              "label": "mix",
+              "min": 0,
+              "max": 1,
+              "jump": 0.05,
+              "ticks": 5
+            }
+          }
+        }
+      }
+    ]
+  ]
+}
