@@ -104,8 +104,8 @@ export default class KeyboardStore extends Store {
     document.addEventListener('keyup',   e => (e.keyCode || e.which) && this.handleKeyUp(noteKeys.indexOf(e.keyCode   || e.which)) )
 
     // Bind to MIDI (OMG!!! MIDI in the browser! WTF!)
-    midi.on('ON', (note, velocity) => this.handleKeyDown(note, velocity) )
-    midi.on('OFF', note            => this.handleKeyUp(note) )
+    midi.on('ON', (note, velocity) => this.handleKeyDown(note, velocity, true) )
+    midi.on('OFF', note            => this.handleKeyUp(note, true) )
 
     
     /*
@@ -142,11 +142,11 @@ export default class KeyboardStore extends Store {
   */ 
 
   // Handle key press
-  handleKeyDown(key, velocity = 127) {
+  handleKeyDown(key, velocity = 127, midi=false) {
     // Exit if not a mapped key
     if (key < 0) return
 
-    const k = key + midiBase + 12 * this.state.transposition
+    const k = midi ? key : key + midiBase + 12 * this.state.transposition
 
     // TODO:
     // Same key can only be pressed once?
@@ -162,11 +162,11 @@ export default class KeyboardStore extends Store {
   }
 
   // Handle key release
-  handleKeyUp(key) {
+  handleKeyUp(key, midi=false) {
     // Exit if not a mapped key
     if (key < 0) return
 
-    const k = key + midiBase + 12 * this.state.transposition
+    const k = midi ? key : key + midiBase + 12 * this.state.transposition
 
     // Remove released key
     delete this._keys[k]
