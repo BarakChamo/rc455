@@ -196,14 +196,12 @@ export default class KeyboardStore extends Store {
 
   // Handle Arpeggiator settings
   setArpMode(mode) {
-    console.log('setArpMode', mode)
     this.state.arp.on = ( mode !== 'OFF' )
     this.state.arp.mode = mode
     this.setState(this.state)
   }
 
   setArpRate(rate) {
-    console.log('setArpRate', rate)
     this.state.arp.rate = rate
     this.setState(this.state)
   }
