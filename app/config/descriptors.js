@@ -65,6 +65,7 @@ export default {
   },
 
   VCDR: {
-    'enableVocoder': v => `VOCODER: ${v ? 'ON' : 'OFF'}`
+    'enableVocoder': v => `VOCODER: ${v ? 'ON' : 'OFF'}`,
+    'filter.gain.value': v => `Fricative mix: ${n2p(v)}`
   }
 }

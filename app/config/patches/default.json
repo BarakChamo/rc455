@@ -30,7 +30,8 @@
     },
 
     "VCDR": {
-      "enableVocoder": false
+      "enableVocoder": false,
+      "filter.gain.value": 1
     }
 
   },

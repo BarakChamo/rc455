@@ -210,8 +210,11 @@ class AudioController {
       modulator: ctx.createGain(),
       carrier:   ctx.createGain(),
       output:    ctx.createGain(),
-      switch:    ctx.createGain()
+      switch:    ctx.createGain(),
+      filter:    ctx.createGain()
     }
+
+    this.VCDR.filter.gain.value = 1.0
 
 
     /* Connections */
@@ -435,18 +438,14 @@ class AudioController {
     }
 
     // Set up a high-pass filter to add back in the fricatives, etc.
-    // (this isn't used by default in the "production" version, as I hid the slider)
-    // let hpFilter = ctx.createBiquadFilter()
-    // hpFilter.type = 'highpass'
-    // hpFilter.frequency.value = bands[vocoderBands - 1].frequency
-    // hpFilter.Q.value = 1
-    // modulator.connect( hpFilter)
+    let hpFilter = ctx.createBiquadFilter()
+    hpFilter.type = 'highpass'
+    hpFilter.frequency.value = bands[vocoderBands - 1].frequency
+    hpFilter.Q.value = 1
+    modulator.connect( hpFilter)
 
-    // let hpFilterGain = ctx.createGain()
-    // hpFilterGain.gain.value = 1.0 ////// FIGURE THIS OUT!!!
-
-    // hpFilter.connect( hpFilterGain )
-    // hpFilterGain.connect( this.output )
+    hpFilter.connect( this.VCDR.filter )
+    this.VCDR.filter.connect( vocoderOutput )
 
     var rectifierCurve = new Float32Array(65536)
     for (var i = -32768; i < 32768; i++) rectifierCurve[i + 32768] = ((i > 0) ? i : -i) / 32768
