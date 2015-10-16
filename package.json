@@ -35,7 +35,6 @@
     "node-sass": "^3.2.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-router": "^0.13.3",
     "react-templates": "^0.1.22",
     "react-templates-loader": "^0.1.1",
     "sass-loader": "^2.0.1",
