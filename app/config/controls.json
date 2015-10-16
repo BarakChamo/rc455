@@ -308,7 +308,7 @@
         "controls": {
           "VCDR": {
             "filter.gain.value": {
-              "label": "control",
+              "label": "fric.",
               "type": "Knob",
               "min": 0.0,
               "max": 1.0,
