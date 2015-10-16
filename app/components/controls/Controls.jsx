@@ -8,7 +8,7 @@ import     preset from 'config/patches/default.json'
 import Knob       from './Knob'
 import Switch     from './Switch'
 import Button     from './Button'
-import Visualizer from './visualizer'
+import Visualizer from './Visualizer'
 
 const components = {
   Knob:   Knob,
