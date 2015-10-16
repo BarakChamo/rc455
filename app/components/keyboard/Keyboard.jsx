@@ -1,6 +1,6 @@
 import 'styles/components/keyboard.scss'
 
-import Key    from './key'
+import Key    from './Key'
 import Knob   from 'components/controls/Knob'
 import Switch from 'components/controls/Switch'
 import Button from 'components/controls/Button'
