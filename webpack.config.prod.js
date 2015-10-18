@@ -54,17 +54,17 @@ module.exports = [
 
                 {   // CSS Loader
                     test: /\.css$/,  
-                    loader: ExtractTextPlugin.extract("style-loader", "css-loader") 
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader?-minimize") 
                 },
                 
                 {   // LESS Loader
                     test: /\.less$/, 
-                    loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader?-minimize!less-loader")
                 },
 
                 {   // SASS Loader
                     test: /\.scss$/, 
-                    loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader")
+                    loader: ExtractTextPlugin.extract("style-loader", "css-loader?-minimize!sass-loader")
                 }
             ]
         },
