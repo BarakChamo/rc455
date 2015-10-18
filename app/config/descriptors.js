@@ -16,7 +16,7 @@ export default {
 
   OSC1: {
     'type': v => `OSC1 type: ${v}`,
-    'detune.value': v => `OSC1 detune: ${v} cents`
+    'detune.value': v => `OSC1 detune: ${f2n(v)} cents`
   },
 
   AMP1: {
@@ -25,7 +25,7 @@ export default {
 
   OSC2: {
     'type': v => `OSC2 type: ${v}`,
-    'detune.value': v => `OSC2 detune: ${v} cents`
+    'detune.value': v => `OSC2 detune: ${f2n(v)} cents`
   },
 
   AMP2: {
@@ -34,7 +34,7 @@ export default {
 
   OSC3: {
    'type': v => `OSC3 type: ${v}`,
-    'detune.value': v => `OSC3 detune: ${v} cents`
+    'detune.value': v => `OSC3 detune: ${f2n(v)} cents`
   },
 
   AMP3: {

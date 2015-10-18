@@ -1,5 +1,18 @@
 import 'styles/components/controls/knob.scss'
 
+// Create transparent ghost
+const ghost = document.createElement('IMG')
+ghost.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
+const noteKeys = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
+
+// Append ghost to document
+document.body.appendChild(ghost)
+
+const wheelMin  = 10,
+      dragMin   = 10,
+      dragRange = 25
+
 let eventKeys = [
   'ctrlKey',
   'shiftKey',
@@ -43,6 +56,8 @@ export default class Knob extends Component {
 
       return (<div className='tick' key={`${Math.random()}`} style={ tickStyle } />)
     }.bind(this))
+
+    this.throttledDrag = _.throttle(this.handleDrag, 25)
   }
 
   shouldComponentUpdate(nextProps, nextState) {  
@@ -51,6 +66,10 @@ export default class Knob extends Component {
   }
 
   componentWillUpdate(nextProps, nextState){
+    // Reset current spin
+    // this.currentSpin = 0
+
+    // Set value
     this.value = nextProps.values ? nextProps.values.indexOf(this.props.getValue()) : this.props.getValue()
   }
 
@@ -69,10 +88,48 @@ export default class Knob extends Component {
     this.props.handler(this.props.target, this.props.control, value)
   }
 
+  handleDrag(e) {
+    // e.stopPropagation()
+    // e.preventDefault()
+
+    if(!this.drag || (e.clientY || e.pageY) === null) return
+
+    // Get position
+
+    const position = (Math.min(Math.max((( this.start - (e.clientY || e.pageY) ) / dragRange), -1), 1) + 1) / 2
+
+    // Get value
+    let value = Math.min(Math.max(this.min, position * this.range), this.max)
+
+    // Normalize to nearest jump
+    value = this.jump ? Math.floor(value / this.jump) * this.jump : value
+
+    // If discrete, map back to correct value
+    if (this.props.values) value = this.props.values[value]
+
+    // Call control change action
+    this.props.handler(this.props.target, this.props.control, value)
+  }
+
+  handleDragStart(e) {
+    this.drag  = true
+    this.start = e.clientY || e.pageY
+    
+    // hide drag-ghost 
+    e.dataTransfer && e.dataTransfer.setDragImage(ghost, 0, 0)
+  }
+
+  handleDragEnd(e) {  
+    this.drag = false
+
+    e.stopPropagation()
+    e.preventDefault()
+  }
+
   render() {
     let self = this
 
-    const r = ( (this.value - this.min) / (this.range + (this.jump || 0)) ) * 360
+    const r = ( (this.value - this.min) / (this.range + (this.jump || 0) ) ) * 360
 
     const style = {
             transform: `rotate(${r}deg)`,
@@ -81,15 +138,11 @@ export default class Knob extends Component {
 
     return (
       <div className='control-knob'
-           draggable='false'
-        // onDragStart={ e => this.handleWhatever(e) }
-        // onDragEnter={ e => this.handleWhatever(e) }
-        // onDragExit={  e => this.handleWhatever(e) }
-        // onDragLeave={ e => this.handleWhatever(e) }
-        // onMouseDown={ e => this.handleWhatever(e, 'onMouseDown') }
-        // onMouseUp={   e => this.handleWhatever(e, 'onMouseUp'  ) }
-        // onMouseMove={ e => this.handleWhatever(e, 'onMouseMove') }
-           onWheel={ e => this.handleWheel( e, 'onWheel' ) }
+           draggable='true'
+           onWheel={     e => this.handleWheel(e) }
+           onDragStart={ e => this.handleDragStart(e) }
+           onDragEnd={   e => this.handleDragEnd(e) }
+           onDrag={      e => this.throttledDrag(e) }
       >
         <div className='hole'></div>
         <div className='cogs'    style={ style }></div>
