@@ -18,7 +18,7 @@ let flux = new Flux()
 */ 
 
 ReactDOM.render(
-  <div id='synth'>
+  <div>
     <Synth flux={flux}/>
   </div>,
   document.getElementById('container')
