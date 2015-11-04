@@ -1,0 +1,75 @@
+{
+  "global": {
+
+    "FLT": {
+      "type": "highpass",
+      "frequency.value": 0,
+      "Q.value": 1
+    },
+
+    "DIST": {
+      "enableCurve": false,
+      "setCurve": 0
+    },
+
+    "RVRB": {
+      "mixReverb": 0,
+      "setReverb": 1
+    },
+
+    "LFO": {
+      "frequency.value": 2.0
+    },
+
+    "LFOAMPGAIN": {
+      "gain.value": 0
+    },
+
+    "LFOFLTGAIN": {
+      "gain.value": 0
+    },
+
+    "VCDR": {
+      "enableVocoder": false,
+      "filter.gain.value": 1
+    }
+
+  },
+
+  "voice": {
+
+    "OSC1": {
+      "type": "square",
+      "detune.value": 0
+    },
+
+    "AMP1": {
+      "gain.value": 1.0
+    },
+
+    "OSC2": {
+      "type": "sine",
+      "detune.value": 0
+    },
+
+    "AMP2": {
+      "gain.value": 1.0
+    },
+
+    "OSC3": {
+      "type": "sawtooth",
+      "detune.value": 0
+    },
+
+    "AMP3": {
+      "gain.value": 1.0
+    },
+
+    "ENV": {
+      "attack": 0,
+      "decay": 1,
+      "sustain": 0,
+      "release": 0
+    }
+  }
+}

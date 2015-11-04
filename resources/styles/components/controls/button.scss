@@ -1,0 +1,172 @@
+.control-button {
+	$width:  55px;
+	$height: 50px;
+	$gutter: 4px;
+
+	outline: none;
+	width: $width;
+	height: $height;
+	
+	position: relative;
+	display: inline-block;
+	margin: 3px;
+	border-radius: 6px;
+	
+	background-color: #000;
+	
+			background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+
+	border: 0;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+	
+			perspective: 200;
+	-webkit-perspective: 200;
+	
+			box-shadow: inset #000 4px 0px 4px, inset #000 -4px 0px 4px;
+	-webkit-box-shadow: inset #000 4px 0px 4px, inset #000 -4px 0px 4px;
+
+	background-image: -webkit-gradient(
+		linear, left top, left bottom,
+		color-stop( 0, 		hsl(0,0%,10%) ),
+		color-stop( 0.08, 	hsl(0,0%,30%) ),
+		color-stop( 0.2, 	hsl(0,0%,0%) )
+	);
+
+			transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+
+	&:before {
+		position: absolute;
+		left: 0;
+
+		content: attr(data-icon);
+		color: black;
+		line-height: 40px;
+		text-align: center;
+		z-index: 10;
+
+		font-size: 2em;
+		
+				text-shadow: rgba(255,255,255,0.08) 0 -1px 0;
+		-webkit-text-shadow: rgba(255,255,255,0.08) 0 -1px 0;
+	    
+	    width: $width - $gutter * 2;
+		height: $height - $gutter * 2;
+		
+		margin: 4px;
+		border-radius: 3px;	
+		
+	    background-image: -webkit-gradient( linear, left top, left bottom,
+			from( 	hsl(0,0%,20%) ), to( hsl(0,0%,15%) )
+		);
+		
+		border-top: 1px solid rgba(255,255,255,0.15);
+
+			transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+	}
+
+	&:after {
+		content: '';
+		z-index: 12;
+		position: absolute;
+	   
+	    margin: 3px;
+		border-radius: 3px;
+		
+		left: ($width * 0.11);
+		top: $height * 0.75;
+	    width: $width * 0.66;
+		height: $height / 20;
+		
+		-webkit-box-shadow: inset rgba(0,0,0,.2) 0 -1px 2px, inset rgba(255,255,255,.1) 0 1px 1px;
+			transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+	}
+
+	&:hover {
+		cursor: pointer;
+
+		&:before {
+			background-image: -webkit-gradient( linear, left top, left bottom,
+				from( 	hsl(0,0%,19.5%) ), to( hsl(0,0%,14%) )
+			);
+		}
+	}
+
+	&.pressed:before {
+		color: hsl(200,100%,50%);
+	}
+
+	&:active {
+		cursor: default;
+
+				box-shadow: inset #000 4px 0px 4px, inset #000 -4px 0px 4px;
+		-webkit-box-shadow: inset #000 4px 0px 4px, inset #000 -4px 0px 4px;
+
+		background-image: -webkit-gradient(
+			linear, left top, left bottom,
+			color-stop( 0, 		hsl(0,0%,10%) ),
+			color-stop( 0.14, 	hsl(0,0%,30%) ),
+			color-stop( 0.3, 	hsl(0,0%,0%) )
+		);
+
+		&:before {
+			z-index: 11;
+			border: 0;
+			border-top: 1px solid transparent;
+
+			color: hsl(200,100%,50%);			
+			background-image: -webkit-gradient( linear, left top, left bottom,
+				from( 	hsl(0,0%,19%) ), to( hsl(0,0%,12%) )
+			);
+			
+
+					border-image: -webkit-gradient(linear, 0% 0%, 100% 0%, 
+									color-stop(0,  hsla(200,100%,85%,.05)),
+									color-stop(.5, hsl(200,0%,40%)),
+									color-stop(1,  hsla(200,100%,80%,.05)) 
+									)50% 100%;
+			-webkit-border-image: -webkit-gradient(linear, 0% 0%, 100% 0%, 
+									color-stop(0,  hsla(200,100%,85%,.05)),
+									color-stop(.5, hsl(200,0%,40%)),
+									color-stop(1,  hsla(200,100%,80%,.05)) 
+									)50% 100%;
+
+					box-shadow: 0px 2px 1px 1px hsl(0,0%,13%);				
+			-webkit-box-shadow: 0px 2px 1px 1px hsl(0,0%,13%);				
+
+					transform: rotateX(-25deg) scaleX(.95) translateY(4px);	
+			-webkit-transform: rotateX(-25deg) scaleX(.95) translateY(4px);
+
+					text-shadow: rgba(0,0,0,.5) 0 1px 1px, #0589c8 0 0 10px;
+			-webkit-text-shadow: rgba(0,0,0,.5) 0 1px 1px, #0589c8 0 0 10px;
+
+					border-image: -webkit-gradient(linear, 0% 0%, 100% 0%, 
+									color-stop(0,  hsla(200,100%,85%,.05)),
+									color-stop(.5, hsl(200,20%,50%)),
+									color-stop(1,  hsla(200,100%,80%,.05)) 
+									)50% 100%;	
+			-webkit-border-image: -webkit-gradient(linear, 0% 0%, 100% 0%, 
+									color-stop(0,  hsla(200,100%,85%,.05)),
+									color-stop(.5, hsl(200,20%,50%)),
+									color-stop(1,  hsla(200,100%,80%,.05)) 
+									)50% 100%;
+		}
+
+		&:after {
+			top: 60px * (4/5);
+			opacity: .4;
+			
+					transform: scale(.9);
+			-webkit-transform: scale(.9);
+		}
+
+		&:hover:before {
+			background-image: -webkit-gradient( linear, left top, left bottom,
+				from( 	hsl(0,0%,19%) ), to( hsl(0,0%,12%) )
+			);
+		}
+	}
+}
