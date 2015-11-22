@@ -59,7 +59,15 @@ export default class Help extends Component {
 
               <p>To save presets press the ✦ button, press × to delete them.</p>
 
+              <p><a href="https://github.com/BarakChamo/rc455">More detailed instructions on GitHub.</a></p>
+
               <p>Have fun!</p>
+
+              <br/>
+              <div className='text-center'>
+                <a href='http://www.recurse.com' title='Made with love at the Recurse Center'><img src='https://cloud.githubusercontent.com/assets/2883345/11322972/9e553260-910b-11e5-8de9-a5bf00c352ef.png' height='59px'/></a>
+              </div>
+              <br/>
             </div>
           </div>
         </div>
