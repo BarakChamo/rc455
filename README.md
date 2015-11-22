@@ -1,5 +1,9 @@
 # [RC-455](http://barakchamo.github.io/rc455)
 ###### *RC-455* is a WebAudio synthesizer inspired by the legendary [Moog Voyager](https://en.wikipedia.org/wiki/Minimoog_Voyager), built in the [Recurse Center](http://recurse.com)
+<a href='http://www.recurse.com' title='Made with love at the Recurse Center'><img src='https://cloud.githubusercontent.com/assets/2883345/11325206/336ea5f4-9150-11e5-9e90-d86ad31993d8.png' height='20px'/></a>
+<br/>
+
+
 It's a 25-key, 3-oscillator additive synthesizer. It features:
 * Key-mapped control with keyboard and MIDI(!) support.
 * 5 octave transposition range.
