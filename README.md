@@ -4,8 +4,8 @@
 <br/>
 
 
-This is a 25-key, 3-oscillator additive synthesizer. It features:
-* Key-mapped control with keyboard and MIDI(!) support.
+This is a 25-key, 3-oscillator additive WebAudio synthesizer. It features:
+* Key-mapped control with keyboard and MIDI(WebMIDI!) support.
 * 5 octave transposition range.
 * Unlimited polyphony.
 * Envelope dynamics control.
@@ -28,6 +28,10 @@ To play the synth you can:
 5. If you enable `Arpeggio`, hold multiple keys down and they will play in sequence.
 
 
+###### How to use MIDI
+coming soon
+
+
 ###### How to create sounds
 You can create custom synth sounds by messing around with the synth knobs:
 * Customize the waveforms, pitch detune, and amplitude of each oscillator.
@@ -47,14 +51,6 @@ Here's how to use the vocoder and be awesome:
 If you created a sound you like you can save them locally (it goes to `localStorage`).
 Press `✦` to save a preset, `<` & `>` to toggle between saved ones and `X` to delete.
 
-### Building RC-455
-The synth is built with React, Flummox and Webpack. 
-
-First, make sure webpack is installed globablly: `npm install -g webpack`
-
-To start the development server run `npm start`.
-
-The local version will be available at `localhost:3000`.
 
 ##### Mentions
 *RC-455* is built using [React](https://github.com/facebook/react) & [Flummox](https://github.com/acdlite/flummox) and inspired by [umbrUI](https://github.com/simurai/umbrUI) and [WebAudio Vocoder](https://github.com/cwilso/vocoder)
