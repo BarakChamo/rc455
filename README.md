@@ -4,7 +4,7 @@
 <br/>
 
 
-It's a 25-key, 3-oscillator additive synthesizer. It features:
+This is a 25-key, 3-oscillator additive synthesizer. It features:
 * Key-mapped control with keyboard and MIDI(!) support.
 * 5 octave transposition range.
 * Unlimited polyphony.
@@ -49,4 +49,4 @@ Press `✦` to save a preset, `<` & `>` to toggle between saved ones and `X` to 
 
 
 ##### Mentions
-*RC-455* is built using [React](https://github.com/facebook/react) & [Flummox](https://github.com/acdlite/flummox)
+*RC-455* is built using [React](https://github.com/facebook/react) & [Flummox](https://github.com/acdlite/flummox) and inspired by [umbrUI](https://github.com/simurai/umbrUI) and [WebAudio Vocoder](https://github.com/cwilso/vocoder)
