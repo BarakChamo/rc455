@@ -25,7 +25,7 @@ export default class Knob extends Component {
   componentWillMount() {
     // Handle discrete values
     if (this.props.values) {
-      
+
       this.value = this.props.values.indexOf(this.props.getValue())
 
       this.min   = 0
@@ -60,7 +60,7 @@ export default class Knob extends Component {
     this.throttledDrag = _.throttle(this.handleDrag, 25)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {  
+  shouldComponentUpdate(nextProps, nextState) {
     // Only render if key state changed
     return this.props.getValue() !== ( nextProps.values ? nextProps.values[this.value] : this.value )
   }
@@ -114,12 +114,12 @@ export default class Knob extends Component {
   handleDragStart(e) {
     this.drag  = true
     this.start = e.clientY || e.pageY
-    
-    // hide drag-ghost 
+
+    // hide drag-ghost
     e.dataTransfer && e.dataTransfer.setDragImage(ghost, 0, 0)
   }
 
-  handleDragEnd(e) {  
+  handleDragEnd(e) {
     this.drag = false
 
     e.stopPropagation()

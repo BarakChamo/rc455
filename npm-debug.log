@@ -1,37 +1,23 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
-2 info using npm@2.14.4
-3 info using node@v4.1.2
-4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info prestart web@1.0.0
-6 info start web@1.0.0
-7 verbose unsafe-perm in lifecycle true
-8 info web@1.0.0 Failed to exec start script
-9 verbose stack Error: web@1.0.0 start: `node server`
-9 verbose stack Exit status 1
-9 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:214:16)
-9 verbose stack     at emitTwo (events.js:87:13)
-9 verbose stack     at EventEmitter.emit (events.js:172:7)
-9 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
-9 verbose stack     at emitTwo (events.js:87:13)
-9 verbose stack     at ChildProcess.emit (events.js:172:7)
-9 verbose stack     at maybeClose (internal/child_process.js:818:16)
-9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
-10 verbose pkgid web@1.0.0
-11 verbose cwd /Users/barak/Documents/dev/RC/web/synth
-12 error Darwin 14.5.0
-13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
-14 error node v4.1.2
-15 error npm  v2.14.4
-16 error code ELIFECYCLE
-17 error web@1.0.0 start: `node server`
-17 error Exit status 1
-18 error Failed at the web@1.0.0 start script 'node server'.
-18 error This is most likely a problem with the web package,
-18 error not with npm itself.
-18 error Tell the author that this fails on your system:
-18 error     node server
-18 error You can get their info via:
-18 error     npm owner ls web
-18 error There is likely additional logging output above.
-19 verbose exit [ 1, true ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'build' ]
+2 info using npm@3.10.9
+3 info using node@v4.6.1
+4 verbose stack Error: missing script: build
+4 verbose stack     at run (/usr/local/lib/node_modules/npm/lib/run-script.js:151:19)
+4 verbose stack     at /usr/local/lib/node_modules/npm/lib/run-script.js:61:5
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:356:5
+4 verbose stack     at checkBinReferences_ (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:320:45)
+4 verbose stack     at final (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:354:3)
+4 verbose stack     at then (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:124:5)
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:311:12
+4 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:78:16
+4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)
+5 verbose cwd /Users/barak/Documents/dev/RC/web/synth
+6 error Darwin 14.5.0
+7 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "build"
+8 error node v4.6.1
+9 error npm  v3.10.9
+10 error missing script: build
+11 error If you need help, you may report this error at:
+11 error     <https://github.com/npm/npm/issues>
+12 verbose exit [ 1, true ]

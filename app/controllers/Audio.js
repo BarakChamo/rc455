@@ -2,12 +2,12 @@ import Voice from './Voice'
 
 // Cross-browser fixes
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
-window.AudioContext    = AudioContext || webkitAudioContext
+window.AudioContext    = window.AudioContext || window.webkitAudioContext
 
-let ctx          = new AudioContext(),
+let ctx          = new window.AudioContext(),
     minVal       = 134,
     startFreq    = 55,
-    endFreq      = 7040, 
+    endFreq      = 7040,
     vocoderBands = 28 // or 14 if this gets to heavy
 
 // Distortion curve helper
@@ -50,7 +50,7 @@ function loadNoiseBuffer() {  // create a 5-second buffer of noise
     let lengthInSamples =  5 * ctx.sampleRate,
         noiseBuffer = ctx.createBuffer(1, lengthInSamples, ctx.sampleRate),
         bufferData = noiseBuffer.getChannelData(0)
-    
+
     for (let i = 0; i < lengthInSamples; ++i) {
         bufferData[i] = (2*Math.random() - 1)  // -1 to +1
     }
@@ -110,7 +110,7 @@ function createNoiseGate( connectTo ) {
 
     inputNode.connect(rectifier)
     inputNode.connect(gateGain)
-    
+
     return inputNode
 }
 
@@ -122,7 +122,7 @@ function convertToMono( input ) {
 
   splitter.connect( merger, 0, 0 )
   splitter.connect( merger, 0, 1 )
-  
+
   return merger
 }
 
@@ -150,7 +150,7 @@ class AudioController {
     this.analyser.smoothingTimeConstant = 0.95
     this.analysisData = new Uint8Array(this.analyser.frequencyBinCount)
     this.MSTR.connect(this.analyser)
-    
+
     // Filter
     this.FLT = ctx.createBiquadFilter()
     this.FLT.type = 'highpass'
@@ -192,13 +192,13 @@ class AudioController {
     this.LFO = ctx.createOscillator()
     this.LFOAMPGAIN = ctx.createGain()
     this.LFOFLTGAIN = ctx.createGain()
-    
+
     this.LFO.frequency.value = 2.0
     this.LFOAMPGAIN.gain.value = 0.2
     this.LFOFLTGAIN.gain.value = 0.2
 
 
-    /* Vocoder */ 
+    /* Vocoder */
 
     this.VCDR = {
       enableVocoder: function(v){
@@ -234,7 +234,7 @@ class AudioController {
 
     // Distortion to Reverb (wet and dry)
     this.DIST.connect(this.RVRBD)
-    this.RVRB.connect(this.RVRBW)    
+    this.RVRB.connect(this.RVRBW)
 
     // Reverb to Output
     this.RVRBD.connect(this.output)
@@ -251,7 +251,7 @@ class AudioController {
     // Output to destination
     this.output.gain.value = 2
 
-    /* Start! */ 
+    /* Start! */
 
     // Start the LFO
     this.LFO.start(ctx.currentTime)
@@ -314,7 +314,7 @@ class AudioController {
     this.analyser.getByteTimeDomainData(this.analysisData)
     return this.analysisData
   }
-  
+
   zeroCrossing() {
     let i = 0,
         l = this.analyser.frequencyBinCount,
@@ -382,7 +382,7 @@ class AudioController {
 
     /*
       Input Stream processing
-    */ 
+    */
 
     // Create an AudioNode from the stream
     this.inputSource = ctx.createMediaStreamSource(stream)
@@ -429,10 +429,10 @@ class AudioController {
     let waveShaperCurve = new Float32Array(65536)
     const n = 65536
     const n2 = n / 2
-    
+
     for (var i = 0; i < n2; ++i) {
         const x = i / n2
-        
+
         waveShaperCurve[n2 + i] = x
         waveShaperCurve[n2 - i - 1] = x
     }
@@ -473,7 +473,7 @@ class AudioController {
       modulator.connect( modulatorFilter )
       modFilterBands.push( modulatorFilter )
 
-      // Now, create a second bandpass filter tuned to the same frequency - 
+      // Now, create a second bandpass filter tuned to the same frequency -
       // this turns our second-order filter into a 4th-order filter,
       // which has a steeper rolloff/octave
       let secondModulatorFilter = ctx.createBiquadFilter()
@@ -521,7 +521,7 @@ class AudioController {
       rectifier.connect( lpFilter )
 
       let lpFilterPostGain = ctx.createGain()
-      lpFilterPostGain.gain.value = 1.0 
+      lpFilterPostGain.gain.value = 1.0
       lpFilter.connect( lpFilterPostGain )
       lpFilterPostGains.push( lpFilterPostGain )
 

@@ -1,10 +1,10 @@
-import { Flummox } from 'flummox';
+import { Flummox } from 'flummox'
 
-import SynthActions from './actions/SynthActions';
-import SynthStore from './stores/SynthStore';
+import SynthActions from './actions/SynthActions'
+import SynthStore from './stores/SynthStore'
 
-import KeyboardActions from './actions/KeyboardActions';
-import KeyboardStore from './stores/KeyboardStore';
+import KeyboardActions from './actions/KeyboardActions'
+import KeyboardStore from './stores/KeyboardStore'
 
 export default class Flux extends Flummox {
   constructor() {
@@ -12,7 +12,7 @@ export default class Flux extends Flummox {
 
     /*
       Initialize Action Creators
-    */ 
+    */
 
     this.createActions('synth', SynthActions);
     this.createActions('keyboard', KeyboardActions);
@@ -20,7 +20,7 @@ export default class Flux extends Flummox {
 
     /*
       Initialize Stores
-    */ 
+    */
 
     this.createStore('synth', SynthStore, this);
     this.createStore('keyboard', KeyboardStore, this);
